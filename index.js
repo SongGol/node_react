@@ -3,6 +3,7 @@ const app = express()
 const port = 3000
 
 const { User } = require('./models/User'); 
+const { auth } = require('./middleware/auth');
 const bodyParser = require('body-parser');
 const config = require('./config/key');
 const cookieParser = require('cookie-parser');
@@ -22,7 +23,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 });
 
-app.post('/register', (req, res) => {
+app.post('/api/users/register', (req, res) => {
     //회원가입시 필요한 정보를 client에서 가져와서 db에 넣어줌
 
     const user = new User(req.body);
@@ -68,6 +69,20 @@ app.post('/api/users/login', (req, res) => {
     //이메일이 있으면 비밀번호가 같은지 확인
 
     //비밀번호가 같다면 토큰 생성
+});
+
+app.get('/api/users/auth', auth, (req, res) => {
+    //미들웨러를 통과했다는 것은 auth가 true
+    res.status(200).json({
+        _id: req.user._id,
+        isAdmin: req.user.role === 0 ? false : true,
+        isAuth: true,
+        email: req.user.email,
+        name: req.user.name,
+        lastname: req.user.lastname,
+        role: req.user.role,
+        image: req.user.image,
+    });
 });
 
 app.listen(port, () => {
