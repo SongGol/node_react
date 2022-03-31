@@ -1,9 +1,15 @@
-import axios from 'axios';
+import { PromiseProvider } from 'mongoose';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../../_actions/user_action';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const onEmailHandler = (event) => {
         setEmail(event.currentTarget.value);
@@ -21,10 +27,16 @@ const LoginPage = () => {
             password: password,
         };
 
-        axios.post('/api/users/login', body)
-            .then(respone => {
-                
+        dispatch(loginUser(body))
+            .then(response => {
+                if (response.payload.loginSuccess) {
+                    navigate('/');
+                } else {
+                    alert('Error');
+                }
             })
+
+        
     };
 
     return (
