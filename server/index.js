@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 
 const { User } = require('./models/User'); 
 const { auth } = require('./middleware/auth');
@@ -22,6 +22,10 @@ mongoose.connect(config.mongoURI, {
 app.get('/', (req, res) => {
   res.send('Hello World!')
 });
+
+app.get('/api/hello', (req, res) => {
+    res.send("안녕하세요")
+})
 
 app.post('/api/users/register', (req, res) => {
     //회원가입시 필요한 정보를 client에서 가져와서 db에 넣어줌
