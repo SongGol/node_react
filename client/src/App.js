@@ -1,24 +1,53 @@
-import logo from './logo.svg';
 import './App.css';
+import { Fragment } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Routes
+} from "react-router-dom";
+
+import LandingPage from './components/views/LandingPage/LandingPage';
+import LoginPage from './components/views/LoginPage/LoginPags';
+import RegisterPage from './components/views/RegisterPage/RegisterPage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <ul>
+          <li>
+            <Link to="/">LandingPage</Link>
+          </li>
+          <li>
+            <Link to="/login">LoginPage</Link>
+          </li>
+          <li>
+            <Link to="/register">RegisterPage</Link>
+          </li>
+        </ul>
+
+        <hr />
+
+        {/*
+          A <Switch> looks through all its children <Route>
+          elements and renders the first one whose path
+          matches the current URL. Use a <Switch> any time
+          you have multiple routes, but you want only one
+          of them to render at a time
+        */}
+        <Fragment>
+          <Routes>
+            <Route exact path="/" element={<LandingPage />}>
+            </Route>
+            <Route path="/login" element={<LoginPage />}>
+            </Route>
+            <Route path="/register" element={<RegisterPage />}>
+            </Route>
+          </Routes>
+        </Fragment>
+      </div>
+    </Router>
   );
 }
 
