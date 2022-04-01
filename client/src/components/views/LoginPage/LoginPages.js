@@ -48,7 +48,8 @@ const LoginPage = () => {
                     <input type="email" value={email} onChange={onEmailHandler}/>
                     <label>Password</label>
                     <input type="password" value={password} onChange={onPasswordHandler}/>
-                    <button >Login</button>
+                    <br />
+                    <button type="submit">Login</button>
                 </form>
             </div>
         </>
