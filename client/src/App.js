@@ -10,6 +10,7 @@ import {
 import LandingPage from './components/views/LandingPage/LandingPage';
 import LoginPage from './components/views/LoginPage/LoginPages';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
+import Auth from './hoc/auth';
 
 function App() {
   return (
@@ -38,11 +39,11 @@ function App() {
         */}
         <Fragment>
           <Routes>
-            <Route exact path="/" element={<LandingPage />}>
+            <Route exact path="/" element={Auth(LandingPage, null)}>
             </Route>
-            <Route exact path="/login" element={<LoginPage />}>
+            <Route exact path="/login" element={Auth(LoginPage, false)}>
             </Route>
-            <Route path="/register" element={<RegisterPage />}>
+            <Route path="/register" element={Auth(RegisterPage, false)}>
             </Route>
           </Routes>
         </Fragment>
